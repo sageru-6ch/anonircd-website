@@ -1,4 +1,7 @@
 
+p {
+    font-size: 18px;
+}
 .navigation a {
     text-decoration: underline;
 }
@@ -10,14 +13,16 @@
 }
 #join-now {
     font-family: arial;
-    font-size: 20px;
+    font-size: 28px;
 }
 #conn-info {
+    width: 30%;
     float: right;
     margin-right: 5%;
     background: #cccccc;
     padding: 25px;
     background: #585d6b;
+    font-size: 20px;
 }
 .copyright {
     text-align: center;
