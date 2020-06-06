@@ -1,0 +1,27 @@
+
+.navigation a {
+    text-decoration: underline;
+}
+.navigation {
+    text-align: center;
+    margin-top: 10px;
+}
+.infobox {
+}
+#join-now {
+    font-family: arial;
+    font-size: 20px;
+}
+#conn-info {
+    float: right;
+    margin-right: 5%;
+    background: #cccccc;
+    padding: 25px;
+    background: #585d6b;
+}
+.copyright {
+    text-align: center;
+}
+#webchat {
+
+}

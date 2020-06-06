@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Sageru IRC Network - FAQ{% endblock %}
+{% block content %}
+<h2>Frequently Asked Questions</h2>
+
+<p>
+  <b>1. How do you operators ban users if they cannot see the names?</b><br>
+  <br>
+  Operaters use the <a href="documentation.html">AdminServ</a> bot to ban users, which is done on a per-message basis. The operator is given a numbered list of messages, and they indicate the user to ban by the message number. 
+</p>
+
+<p>
+  <b>2. I cannot connect because of a SSL certificate error. What can I do?</b><br>
+  <br>
+  The server uses a self-signed certificate for technical reasons. To connect to the server, you must either manually add the certificate finger or turn of SSL verification.
+</p>
+
+<p>
+  <b>3. How can I register a channel to become an operator?</b><br>
+  <br>
+  Only channels which have no users in them can be claimed for operator status. To claim a channel, you must use the AdminServ bot. Register with the bot using the message "<span style="font-family: monospace">REGISTER &lt;username&gt; &lt;password&gt;</span>" and use the command "<span style="font-family: monospace">CLAIM &lt;channel&gt;</span>". Additional information on channel management can be found in the <a href="documentation.html">Documentation.</a>
+</p>
+
+
+
+{% endblock %}
