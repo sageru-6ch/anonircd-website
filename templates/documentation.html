@@ -1,8 +1,111 @@
+
 {% extends "layout.html" %}
 {% block title %}Sageru IRC Network - Documentation{% endblock %}
 {% block content %}
 <h2>Documentation</h2>
 
-This section is under construction.
+
+<h4>Table of Contents</h4>
+<ol>
+  <li><a href="#intro">Introduction</a>
+  <li><a href="#adminserv">AdminServ</a>
+  <li><a href="#modes">Channel Modes</a>
+</ol>
+
+<hr noshade>
+
+<a name="intro"></a>
+<h4><a href="#intro">Introduction</a></h4>
+<p>AnonIRCd is a custom IRC server designed specifically for communication without nicks. It is not a fork of another IRCd (though this was attemped to see if it would be easier). Though you can connect with a nick, the nick is never read from the connection and is not stored. The server uses its own system for identifying and banning users by message.</p>
+ 
+<p>Most conventional IRC commands such as <code>/join</code>, <code>/part</code>, and <code>/topic</code> will work as expected. Because there are no nicks, the commands <code>/ban</code> and <code>/kick</code> have been replaced by equivalent functions provided by the IRC services (AdminServ).</p>
+
+  
+<a name="adminserv"></a>
+<h4><a href="#adminserv">AdminServ</a></h4>
+<p>AdminServ is the adminsitrative bot for channel management. It uses accounts, and each account has a specific privilege associated with each channel. The available privileges are OWNER, OP, HALF_OP, and NONE. An OWNER of a channel is the only one able to adjust privileges of others on the channel. To register an AdminServ account, use the <code>REGSITER [username] [password]</code> command, and then the <code>LOGIN [username] [password]</code> command. To claim a channel (must be empty), use the <code>CLAIM [channel]</code> command. Banning is done with the <code>LIST [channel]</code> command and <code>BAN [channel] [number]</code>. Unbanning is done with <code>LISTBANS [channel]</code> and <code>UNBANHASH [channel] [hash_from_listbans]</code>.<br><br>
+
+  The above only describes a few of the available commands. A full list of commands is available below.
+</p>
+
+  <pre>
+    00:18 &lt;VeryNiceUser&gt; help
+    00:18 &lt;AdminServ&gt; The following commands are available:
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; ASSIGN &lt;channel&gt; &lt;privilege&gt; &lt;username&gt;
+    00:18 &lt;AdminServ&gt; Assign an admin account to have a privilege level on a channel. See the bottom of this message for
+                      a list of available channel privileges.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; BAN &lt;channel&gt; &lt;num&gt; &lt;optional: reason&gt;
+    00:18 &lt;AdminServ&gt; Ban a user identified by a message number on a given channel. Message numbers can be retrieved
+                      from the LIST command.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; BANRANGE &lt;channel&gt; &lt;num&gt; &lt;optional: reason&gt;
+    00:18 &lt;AdminServ&gt; Same as BAN command, but if user has IP address XX.YY.ZZ.FF, the ban is applied to all IP
+                      addresses XX.YY.*.*.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; CLAIM &lt;channel&gt;
+    00:18 &lt;AdminServ&gt; Claim ownership of an empty channel.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; HELP &lt;[command]&gt;
+    00:18 &lt;AdminServ&gt; Display information on AdminServ commands. Specify a command to get help for just that command.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; IDENTIFY &lt;username&gt; &lt;password&gt;
+    00:18 &lt;AdminServ&gt; Identify yourself with a previous existing admin account. This must be done prior to any other
+                      commands. To register for an account, use the REGISTER command.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; KICK &lt;channel&gt; &lt;num&gt; &lt;optional: reason&gt;
+    00:18 &lt;AdminServ&gt; Kick a user identified by a message number on a given channel. Message numbers can be retrieved
+                      from the LIST command.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; KICK &lt;channel&gt; &lt;partial_message&gt;
+    00:18 &lt;AdminServ&gt; Kick the user of the last message that matches the argument on a given channel.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; REGISTER &lt;username&gt; &lt;password&gt;
+    00:18 &lt;AdminServ&gt; Register an admin account with given account information.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; LIST &lt;channel&gt; &lt;optional: num&gt;
+    00:18 &lt;AdminServ&gt; Lists recent messages from a given channel, and associate a number with each of them. This number
+                      is necessary for other commands like BAN and KICK.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; LISTACTIONS &lt;channel&gt; &lt;optional: num&gt;
+    00:18 &lt;AdminServ&gt; Lists recent authorized actions on a given channel.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; LISTBANS &lt;channel&gt; &lt;optional: num&gt;
+    00:18 &lt;AdminServ&gt; Lists bans on a given channel.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; UNBANIP &lt;channel&gt; &lt;ip_addr&gt;
+    00:18 &lt;AdminServ&gt; Unban a specific IP address from a channel. Since there is no way to retrieve the IP addresses of
+                      anyone on the server, this is only useful if someone contacts you and manually gives you their IP
+                      address to unban.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; UNBANHASH &lt;channel&gt; &lt;ip_addr_hash&gt;
+    00:18 &lt;AdminServ&gt; Unban a specific IP address hash from a channel, retreived from the LISTBANS command.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; SET &lt;channel&gt; &lt;mode&gt; &lt;on/off&gt;
+    00:18 &lt;AdminServ&gt; Sets or unsets a specific mode on a given channel. Modes available: TOPICLOCK, SECRET, SPECIAL_ID.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; TOPIC &lt;channel&gt; &lt;topic&gt;
+    00:18 &lt;AdminServ&gt; Changes the topic on a given channel.
+    00:18 &lt;AdminServ&gt;
+    00:18 &lt;AdminServ&gt; Levels of privilege admin accounts can have on channels are:
+    00:18 &lt;AdminServ&gt; OWNER, OP, HALF_OP, NONE</pre></p>
+
+<a name="modes"></a>
+<h4><a href="#modes">Channel Modes</a></h4>
+
+<p>The following channel modes are available on the server and may be set by operators using the conventional <code>/mode</code> command.
+
+<pre>
+    Secret        - +s (lower case)
+    Topic Lock    - +t
+    SSL Only      - +S (capital)
+    ID Channel    - +u
+    Registered    - +z
+    Operator Only - +O
+</pre>
+
+</p>
+
 
 {% endblock %}

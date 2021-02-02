@@ -1,4 +1,7 @@
 
+body {
+    font-family: calibri;
+}
 p {
     font-size: 18px;
 }
@@ -12,7 +15,7 @@ p {
 .infobox {
 }
 #join-now {
-    font-family: arial;
+    font-family: calibri;
     font-size: 28px;
 }
 #conn-info {
@@ -29,4 +32,10 @@ p {
 }
 #webchat {
 
+}
+
+code {
+    background: #333333;
+    color: white;
+    padding: 3px;
 }
